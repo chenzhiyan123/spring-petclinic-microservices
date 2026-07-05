@@ -2,6 +2,8 @@ services:
   config-server:
     image: springcommunity/spring-petclinic-config-server
     container_name: config-server
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -17,6 +19,8 @@ services:
   discovery-server:
     image: springcommunity/spring-petclinic-discovery-server
     container_name: discovery-server
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -35,6 +39,8 @@ services:
   customers-service:
     image: springcommunity/spring-petclinic-customers-service
     container_name: customers-service
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -47,9 +53,29 @@ services:
     ports:
     - 8081:8081
 
+#  rca-service:
+#    build: ./spring-petclinic-rca-service
+#    container_name: rca-service
+#    environment:
+#      - TZ=Asia/Shanghai
+#      - SERVER_PORT=8085
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 512M
+#    depends_on:
+#      config-server:
+#        condition: service_healthy
+#      discovery-server:
+#        condition: service_healthy
+#    ports:
+#      - 8085:8085
+
   visits-service:
     image: springcommunity/spring-petclinic-visits-service
     container_name: visits-service
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -65,6 +91,8 @@ services:
   vets-service:
     image: springcommunity/spring-petclinic-vets-service
     container_name: vets-service
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -82,6 +110,7 @@ services:
     image: springcommunity/spring-petclinic-genai-service
     container_name: genai-service
     environment:
+      - TZ=Asia/Shanghai
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - AZURE_OPENAI_KEY=${AZURE_OPENAI_KEY}
       - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
@@ -101,6 +130,8 @@ services:
   api-gateway:
     image: springcommunity/spring-petclinic-api-gateway
     container_name: api-gateway
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -116,6 +147,8 @@ services:
   tracing-server:
     image: openzipkin/zipkin
     container_name: tracing-server
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -126,6 +159,8 @@ services:
   admin-server:
     image: springcommunity/spring-petclinic-admin-server
     container_name: admin-server
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -143,6 +178,8 @@ services:
   grafana-server:
     build: ./docker/grafana
     container_name: grafana-server
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:
@@ -153,6 +190,8 @@ services:
   prometheus-server:
     build: ./docker/prometheus
     container_name: prometheus-server
+    environment:
+      - TZ=Asia/Shanghai
     deploy:
       resources:
         limits:

@@ -62,7 +62,7 @@ class PetResource {
 
         final Pet pet = new Pet();
         owner.addPet(pet);
-        return save(pet, petRequest);
+        return save(pet, null);
     }
 
     @PutMapping("/owners/*/pets/{petId}")

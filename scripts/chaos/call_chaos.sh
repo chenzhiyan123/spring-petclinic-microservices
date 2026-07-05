@@ -35,6 +35,9 @@ case $1 in
     vets)
         PORT=8083
         ;;
+    rca)
+        PORT=8085
+        ;;
     attacks*)
         ( cd "${ROOT_DIR}" && curl "http://localhost:${PORT}/actuator/chaosmonkey/assaults" -H "Content-Type: application/json" --data @"${1}".json --fail )
         ;;

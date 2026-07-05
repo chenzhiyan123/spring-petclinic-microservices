@@ -36,6 +36,12 @@ spring:
                 - Path=/api/customer/**
               filters:
                 - StripPrefix=2
+#            - id: rca-service
+#              uri: lb://rca-service
+#              predicates:
+#                - Path=/api/rca/**
+#              filters:
+#                - StripPrefix=2
             - id: genai-service
               uri: lb://genai-service
               predicates:
