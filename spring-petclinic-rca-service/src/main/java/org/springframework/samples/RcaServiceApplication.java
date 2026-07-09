@@ -1,13 +1,13 @@
 package org.springframework.samples;
 
+import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.TimeZone;
 
 @SpringBootApplication
-@EnableFeignClients
 public class RcaServiceApplication {
     public static void main(String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));

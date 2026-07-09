@@ -1,6 +1,13 @@
 server:
   port: 8085
   address: 0.0.0.0
+  data:
+    arangodb:
+      hosts:
+        - 192.168.72.128:8529
+      user: root
+      password: 71325
+      database: MULTI_RCA
 
 spring:
   application:
@@ -11,7 +18,6 @@ spring:
     cache-names: rca
   profiles:
     active: production
-
 
 ---
 spring:

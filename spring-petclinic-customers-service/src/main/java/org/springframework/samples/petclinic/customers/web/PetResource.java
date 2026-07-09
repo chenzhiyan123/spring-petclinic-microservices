@@ -20,9 +20,13 @@ import jakarta.validation.constraints.Min;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.samples.petclinic.customers.PetValidate;
 import org.springframework.samples.petclinic.customers.model.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,7 +66,7 @@ class PetResource {
 
         final Pet pet = new Pet();
         owner.addPet(pet);
-        return save(pet, null);
+        return save(pet, petRequest);
     }
 
     @PutMapping("/owners/*/pets/{petId}")
@@ -74,8 +78,14 @@ class PetResource {
     }
 
     private Pet save(final Pet pet, final PetRequest petRequest) {
-
+        String petNameValidate = PetValidate.validate(petRequest.name());
+        if (petNameValidate != null) {
+            log.warn("petName validate fail, save petName:{}, message:{}", petRequest.name(), petNameValidate);
+        }
         pet.setName(petRequest.name());
+        if (petRequest.birthDate().after(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
+            log.warn("pet birthDate invalid, after now time, save petName:{}", petRequest.name());
+        }
         pet.setBirthDate(petRequest.birthDate());
 
         petRepository.findPetTypeById(petRequest.typeId())
